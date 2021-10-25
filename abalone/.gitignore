@@ -1,3 +1,4 @@
 /bin/
 /target/*
 !/target/abalone-latest.jar
+!/target/abalone-latest-jar-with-dependencies.jar
