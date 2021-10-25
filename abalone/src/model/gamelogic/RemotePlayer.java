@@ -4,11 +4,12 @@ import com.owlike.genson.annotation.JsonProperty;
 
 import view.UI;
 
-public class HumanPlayer extends Player {
+public class RemotePlayer extends Player {
     //
 
-    HumanPlayer(@JsonProperty("name") String name) {
+    RemotePlayer(@JsonProperty("name") String name) {
         super(name);
+        System.out.println("Spawning remote player!");
     }
 
     @Override
