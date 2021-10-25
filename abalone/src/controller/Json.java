@@ -1,12 +1,12 @@
 package controller;
 
-import com.owlike.genson.GenericType;
-import com.owlike.genson.Genson;
-import com.owlike.genson.GensonBuilder;
-
 import java.io.Reader;
 import java.io.Writer;
 import java.util.List;
+
+import com.owlike.genson.GenericType;
+import com.owlike.genson.Genson;
+import com.owlike.genson.GensonBuilder;
 
 import model.artificialintelligence.AggressivePusherStrategy;
 import model.artificialintelligence.MinimaxStrategy;
@@ -17,6 +17,7 @@ import model.gamelogic.ComputerPlayer;
 import model.gamelogic.GameState.Game;
 import model.gamelogic.HumanPlayer;
 import model.gamelogic.Player;
+import model.gamelogic.RemotePlayer;
 import model.gamelogic.ReplayPlayer;
 
 public class Json {
@@ -36,6 +37,7 @@ public class Json {
 				.addAlias("human", HumanPlayer.class)
 				.addAlias("computer", ComputerPlayer.class)
 				.addAlias("random", RandomStrategy.class)
+				.addAlias("remote", RemotePlayer.class)
 				.addAlias("aggressive", AggressivePusherStrategy.class)
 				.addAlias("replay", ReplayPlayer.class)
 				.addAlias("minimax", MinimaxStrategy.class)
