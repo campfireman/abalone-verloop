@@ -16,7 +16,6 @@ public class RemotePlayer extends Player {
 
     RemotePlayer(@JsonProperty("name") String name) throws Exception {
         super(name);
-        System.out.println("Spawning remote player!!!");
     }
 
     private void sendMove(String move) throws FileNotFoundException, IOException {
@@ -45,7 +44,6 @@ public class RemotePlayer extends Player {
 
     @Override
     public PlayableMove determineMove(GameState gameState) {
-        System.out.println("Lets go");
         if (gameState.gameHistory.moves.size() > 0) {
             String lastMove = gameState.gameHistory.moves.get(gameState.gameHistory.moves.size() - 1);
             PlayableMove move = Move.newMove(gameState.board, lastMove, this);
