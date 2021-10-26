@@ -135,4 +135,47 @@ public enum Direction {
     	throw new IllegalArgumentException("Hex " + hex + " cannot be converted to a direction.");
     }
 
+    /**
+     * Converts the direction to standard notatation
+     */
+    public String getStandardNotation() {
+        switch (this) {
+            case UPPER_RIGHT:
+                return "NE";
+            case RIGHT:
+                return "E";
+            case LOWER_RIGHT:
+                return "SE";
+            case LOWER_LEFT:
+                return "SW";
+            case LEFT:
+                return "W";
+            case UPPER_LEFT:
+                return "NW";
+            default:
+                throw new IllegalStateException("Enum is in illegal state");
+        }
+    }
+
+    /**
+     * Converts the standard notatation string to internal Enum
+     */
+    public static Direction fromStandardNotation(String direction) {
+        switch (direction) {
+            case "NE":
+                return UPPER_RIGHT;
+            case "E":
+                return RIGHT;
+            case "SE":
+                return LOWER_RIGHT;
+            case "SW":
+                return LOWER_LEFT;
+            case "W":
+                return LEFT;
+            case "NW":
+                return UPPER_LEFT;
+            default:
+                throw new IllegalArgumentException("Direction string " + direction + " does not correspond to a matching direction");
+        }
+    }
 }

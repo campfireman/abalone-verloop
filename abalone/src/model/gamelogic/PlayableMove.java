@@ -38,6 +38,11 @@ public interface PlayableMove extends Move, Comparable<PlayableMove> {
     String getMoveNotation();
     
     /**
+     * Returns the Abalone standard notation of this move.
+     * @return the Abalone standard notation of this move.
+     */
+    String getStandardNotation();
+    /**
      * Returns the MoveUndo that, when applied to given gameState, will undo
      * this move when applied to the gameState.
      * @return The MoveUndo for this move.

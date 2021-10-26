@@ -333,4 +333,13 @@ public class MoveSumito implements PlayableMove {
 		notation.append(Board.cubeToAbal(origin.add(Hex.direction(direction))));
 		return notation.toString();
 	}
+
+	@Override
+	public String getStandardNotation() {
+		StringBuilder notation = new StringBuilder();
+		
+		notation.append(Board.cubeToAbal(origin));
+		notation.append(direction.getStandardNotation());
+		return notation.toString();
+	}
 }

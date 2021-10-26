@@ -221,6 +221,45 @@ public class MoveSidestep implements PlayableMove {
 		}
 		return notation.toString();	
 	}
+
+	@Override
+	public String getStandardNotation() {
+		StringBuilder notation = new StringBuilder();
+		
+		Hex end1;
+		Hex end2;
+		Hex middle = null;
+		if (marbleLocations.size() == 2) {
+			Iterator<Hex> marbles = marbleLocations.iterator();
+			end1 = marbles.next();
+			end2 = marbles.next();
+		} else { // size == 3
+			Iterator<Hex> marbles = marbleLocations.iterator();
+			Hex marble1 = marbles.next();
+			Hex marble2 = marbles.next();
+			Hex marble3 = marbles.next();
+			if (marble1.isNeighbourOf(marble2) && marble1.isNeighbourOf(marble3)) {
+				end1 = marble2;
+				end2 = marble3;
+				middle = marble1;
+			} else if (marble2.isNeighbourOf(marble1) && marble2.isNeighbourOf(marble3)) {
+				end1 = marble1;
+				end2 = marble3;
+				middle = marble2;
+			} else if (marble3.isNeighbourOf(marble1) && marble3.isNeighbourOf(marble2)) {
+				end1 = marble1;
+				end2 = marble2;
+				middle = marble3;
+			} else {
+				throw new IllegalStateException("Unreachable code.");
+			}
+		}
+		
+		notation.append(Board.cubeToAbal(end1));
+		notation.append(Board.cubeToAbal(end2));
+		notation.append(direction.getStandardNotation());
+		return notation.toString();
+	}
 	
     @Override
 	public int hashCode() {

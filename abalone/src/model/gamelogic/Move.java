@@ -113,6 +113,44 @@ public interface Move {
 				: Direction.fromHex(dir.subtract(end2));
 		return newMove(board, from, direction, initiator);
 	}
+
+	/**
+	 * Converts a move from the standard notation to one that can be used internally.
+	 * @param board The board that the Move will use for internal calculations.
+	 * @param standardNotation 
+	 * @param initiator The initiator of the move.
+	 * @return A new PlayableMove based on the arguments.
+	 * @throws IllegalArgumentException if the string is not of the correct form.
+	 * @throws IllegalMoveException if the string is of the correct form but no move can be made
+	 *     from it.
+	 */
+	public static PlayableMove newStandardMove(Board board, String moveNotation, Player initiator) {
+		if (!moveNotation.matches("([A-Ia-i][1-9]){1}([A-Ia-i][1-9]){0,1}((NE)|(E)|(SE)|(SE)|(SW)|(W)|(NW)){1}")) {
+			throw new IllegalArgumentException("The given moveNotation, " + moveNotation
+					+ " should match ([A-Ia-i][1-9]){1}([A-Ia-i][1-9]){0,1}((NE)|(E)|(SE)|(SE)|(SW)|(W)|(NW)){1} but does not.");
+		}
+
+		Hex first = Board.abalToCube(moveNotation.substring(0, 2).toLowerCase());
+        Hex second = null;
+        Direction direction = null;
+        if (moveNotation.length() == 6 || moveNotation.length() == 5) {
+            direction = Direction.fromStandardNotation(moveNotation.substring(4, 6));
+    		second = Board.abalToCube(moveNotation.substring(2, 4));
+        } else {
+            direction = Direction.fromStandardNotation(moveNotation.substring(2));
+        }
+		// Case sidestep moves:
+		if (second != null) {
+            Set<Hex> from = new HashSet<>(FractionalHex.hexLinedraw(first, second));
+            return newMove(board, from, direction, initiator);
+		}
+		// else sumito:
+		return newMove(board,
+			new HashSet<>(Arrays.asList(first)),
+			direction,
+			initiator
+        );
+	}
 	
     /**
      * Returns all legal moves for the current player given a gameState.
