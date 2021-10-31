@@ -1,7 +1,5 @@
 package model.gamelogic;
 
-import com.owlike.genson.annotation.JsonProperty;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
@@ -9,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
+
+import com.owlike.genson.annotation.JsonProperty;
 
 import model.exceptions.GameNotOverException;
 import model.exceptions.IllegalMoveException;
@@ -354,6 +354,29 @@ public class GameState {
      */
     public Team getTeamByNumber(int number) {
         return teams.get(number - 1);
+    }
+
+    /**
+     * Returns the team based on the given player
+     * @param Player The player whose team is to be found
+     * @return the team based on the given player
+     */
+    public Team getTeamByPlayer(Player player) {
+        Team result = null;
+        boolean exit = false;
+        for (Team team : teams) {
+            for (Player teamPlayer : team.players) {
+                if (teamPlayer == player) {
+                    result = team;
+                    exit = true;
+                    break;
+                }
+            }
+            if (exit) {
+                break;
+            }
+        }
+        return result;
     }
     
     /**

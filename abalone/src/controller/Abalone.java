@@ -73,6 +73,9 @@ public class Abalone {
             gameState.makeMove(move);
             gameState.gameStats.commitTurn();
         }
+		for (Player player : players) {
+			player.shutdown(gameState);
+		}
         showGameResult(gameState);
         saveGame();
     }

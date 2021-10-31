@@ -2,6 +2,7 @@ package model.gamelogic;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import model.artificialintelligence.AggressivePusherStrategy;
 import model.artificialintelligence.MinimaxStrategy;
 import model.artificialintelligence.RandomStrategy;
@@ -163,5 +164,9 @@ public abstract class Player {
     		default:
     			throw new IllegalStateException();
     	}
+    }
+
+    public void shutdown(GameState gameState) {
+        return;
     }
 }

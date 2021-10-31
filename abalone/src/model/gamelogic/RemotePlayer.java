@@ -10,6 +10,8 @@ import java.io.PrintWriter;
 
 import com.owlike.genson.annotation.JsonProperty;
 
+import model.gamelogic.GameState.Game;
+
 public class RemotePlayer extends Player {
     private String recievingPipePath = "/tmp/abalone_sending";
     private String sendingPipePath = "/tmp/abalone_recieving";
@@ -42,9 +44,7 @@ public class RemotePlayer extends Player {
         }
     }
 
-    @Override
-    public PlayableMove determineMove(GameState gameState) {
-        if (gameState.gameHistory.moves.size() > 0) {
+    public void sendLastMove(GameState gameState) {
             String lastMove = gameState.gameHistory.moves.get(gameState.gameHistory.moves.size() - 1);
             PlayableMove move = Move.newMove(gameState.board, lastMove, this);
             try {
@@ -54,6 +54,13 @@ public class RemotePlayer extends Player {
                 System.exit(1);
             }
             System.out.println("Sent move: " + lastMove);
+
+    }
+
+    @Override
+    public PlayableMove determineMove(GameState gameState) {
+        if (gameState.gameHistory.moves.size() > 0) {
+            sendLastMove(gameState);
         }
         try {
             String moveStr = readMove();
@@ -66,4 +73,10 @@ public class RemotePlayer extends Player {
         return null;
     }
 
+    @Override
+    public void shutdown(GameState gameState) {
+        if (gameState.getWinner() != gameState.getTeamByPlayer(this)) {
+            sendLastMove(gameState);
+        }
+    }
 }
