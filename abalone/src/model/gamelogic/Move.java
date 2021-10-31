@@ -134,7 +134,7 @@ public interface Move {
         Hex second = null;
         Direction direction = null;
         if (moveNotation.length() == 6 || moveNotation.length() == 5) {
-            direction = Direction.fromStandardNotation(moveNotation.substring(4, 6));
+            direction = Direction.fromStandardNotation(moveNotation.substring(4));
     		second = Board.abalToCube(moveNotation.substring(2, 4));
         } else {
             direction = Direction.fromStandardNotation(moveNotation.substring(2));
