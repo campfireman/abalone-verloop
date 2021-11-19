@@ -10,14 +10,15 @@ import java.io.PrintWriter;
 
 import com.owlike.genson.annotation.JsonProperty;
 
-import model.gamelogic.GameState.Game;
 
 public class RemotePlayer extends Player {
-    private String recievingPipePath = "/tmp/abalone_sending";
-    private String sendingPipePath = "/tmp/abalone_recieving";
+    private String recievingPipePath;
+    private String sendingPipePath;
 
-    RemotePlayer(@JsonProperty("name") String name) throws Exception {
+    RemotePlayer(@JsonProperty("name") String name, @JsonProperty("recievingPipePath") String recievingPipePath, @JsonProperty("sendingPipePath") String sendingPipePath) throws Exception {
         super(name);
+        this.recievingPipePath = recievingPipePath;
+        this.sendingPipePath = sendingPipePath;
     }
 
     private void sendMove(String move) throws FileNotFoundException, IOException {
